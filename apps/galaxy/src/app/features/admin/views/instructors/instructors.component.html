@@ -1,0 +1,8 @@
+
+<app-page-title icon="add" title="Instructor" (add)="presenter.goCreatePage()"></app-page-title>
+
+<app-instructors-table
+  [dataSource]="presenter.dataSource"
+  (edit)="presenter.goUpdatePage($event)"
+  (remove)="presenter.goDeleteModal($event)">
+</app-instructors-table>

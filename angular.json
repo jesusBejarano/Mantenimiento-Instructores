@@ -1,0 +1,170 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "libs",
+  "projects": {
+    "galaxy": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/galaxy",
+      "sourceRoot": "apps/galaxy/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/galaxy",
+            "index": "apps/galaxy/src/index.html",
+            "main": "apps/galaxy/src/main.ts",
+            "polyfills": "apps/galaxy/src/polyfills.ts",
+            "tsConfig": "apps/galaxy/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/galaxy/src/favicon.ico",
+              "apps/galaxy/src/assets"
+            ],
+            "styles": [
+              "apps/galaxy/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/galaxy/src/environments/environment.ts",
+                  "with": "apps/galaxy/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "galaxy:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "galaxy:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "galaxy:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/galaxy/src/test.ts",
+            "polyfills": "apps/galaxy/src/polyfills.ts",
+            "tsConfig": "apps/galaxy/tsconfig.spec.json",
+            "karmaConfig": "apps/galaxy/karma.conf.js",
+            "assets": [
+              "apps/galaxy/src/favicon.ico",
+              "apps/galaxy/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/galaxy/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/galaxy/tsconfig.app.json",
+              "apps/galaxy/tsconfig.spec.json",
+              "apps/galaxy/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/galaxy/e2e/protractor.conf.js",
+            "devServerTarget": "galaxy:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "galaxy:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "galaxy-commons": {
+      "projectType": "library",
+      "root": "libs/galaxy-commons",
+      "sourceRoot": "libs/galaxy-commons/src",
+      "prefix": "glx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/galaxy-commons/tsconfig.lib.json",
+            "project": "libs/galaxy-commons/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/galaxy-commons/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/galaxy-commons/src/test.ts",
+            "tsConfig": "libs/galaxy-commons/tsconfig.spec.json",
+            "karmaConfig": "libs/galaxy-commons/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/galaxy-commons/tsconfig.lib.json",
+              "libs/galaxy-commons/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "galaxy"
+}

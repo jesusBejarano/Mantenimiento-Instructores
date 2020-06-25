@@ -1,0 +1,11 @@
+<app-page-title title="Instructor / Actualizar" ></app-page-title>
+
+
+
+<app-instructor-form
+  class="mat-elevation-z4"
+  [instructor]="presenter.instructor"
+  (save)="presenter.updateInstructor($event)"
+  (close)="presenter.goInstructors()"
+  >
+</app-instructor-form>

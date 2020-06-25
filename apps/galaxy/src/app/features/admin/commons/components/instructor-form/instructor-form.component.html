@@ -1,0 +1,21 @@
+<form [formGroup]="form" (ngSubmit)="send()">
+
+
+
+
+  <mat-form-field>
+    <mat-label>Apellidos y Nombres</mat-label>
+    <input matInput formControlName="fullName">
+    <mat-error *ngIf="nameErrors">{{ nameErrors }}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Correo</mat-label>
+    <textarea matInput formControlName="mail"></textarea>
+  </mat-form-field>
+
+  <div class="actions">
+    <button type="button" mat-button color="warn" (click)="goInstructors()">Cancelar</button>
+    <button type="submit" mat-button color="primary"  >Guardar</button>
+  </div>
+
+</form>
